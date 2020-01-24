@@ -58,6 +58,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     vendor/tequila/prebuilt/common/etc/init/init.tequila-system_ext.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.tequila-system_ext.rc
 
+# Charger
+PRODUCT_PACKAGES += \
+    product_charger_res_images
+
 # Enable Android Beam on all targets
 PRODUCT_COPY_FILES += \
     vendor/tequila/config/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.nfc.beam.xml
