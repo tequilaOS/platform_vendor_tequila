@@ -143,6 +143,10 @@ endif
 PRODUCT_PACKAGES += \
     adb_root
 
+# Charger
+PRODUCT_PACKAGES += \
+    product_charger_res_images
+
 # SystemUI
 PRODUCT_DEXPREOPT_SPEED_APPS += \
     SystemUI
