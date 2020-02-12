@@ -197,6 +197,8 @@ PRODUCT_PACKAGES += \
 
 $(call inherit-product, vendor/tequila/config/bootanimation.mk)
 
+$(call inherit-product, vendor/tequila/config/fonts.mk)
+
 $(call inherit-product, vendor/tequila/config/version.mk)
 
 $(call inherit-product, vendor/tequila/config/sepolicy.mk)
