@@ -202,4 +202,7 @@
 
     <!-- Default component for QR code scanner -->
     <string name="config_defaultQrCodeComponent" translatable="false">org.lineageos.aperture/.QrScannerActivity</string>
+
+    <!-- Whether safe headphone volume is enabled or not. -->
+    <bool name="config_safe_media_volume_enabled">false</bool>
 </resources>
