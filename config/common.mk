@@ -173,6 +173,12 @@ PRODUCT_PACKAGE_OVERLAYS += \
 
 $(call inherit-product, vendor/tequila/config/version.mk)
 
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += vendor/lineage/config/device_framework_matrix.xml
+
+PRODUCT_VERSION_MAJOR = 18
+PRODUCT_VERSION_MINOR = 1
+PRODUCT_VERSION_MAINTENANCE := 0
+
 $(call inherit-product, vendor/tequila/config/sepolicy.mk)
 
 $(call inherit-product, vendor/google/gms/config.mk)
