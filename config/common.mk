@@ -87,7 +87,7 @@ PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := false
 
 # Strip the local variable table and the local variable type table to reduce
 # the size of the system image. This has no bearing on stack traces, but will
-# leave less information available via JDWP.
+# LEAVE LESS INformation available via JDWP.
 PRODUCT_MINIMIZE_JAVA_DEBUG_INFO := true
 
 # Disable vendor restrictions
@@ -207,7 +207,8 @@ PRODUCT_PACKAGE_OVERLAYS += \
 PRODUCT_PACKAGES += \
     NavigationBarModeGesturalOverlayFS \
     NetworkStackOverlay \
-    Launcher3Overlay
+    Launcher3Overlay \
+    BlackThemeOverlay
 
 $(call inherit-product, vendor/tequila/config/bootanimation.mk)
 
