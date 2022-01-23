@@ -164,6 +164,10 @@ PRODUCT_PACKAGES += \
 endif
 endif
 
+# Repainter integration
+PRODUCT_PACKAGES += \
+    RepainterServicePriv \
+
 # Dex preopt
 PRODUCT_DEXPREOPT_SPEED_APPS += \
     SystemUI
