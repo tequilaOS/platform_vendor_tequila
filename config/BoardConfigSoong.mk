@@ -30,6 +30,7 @@ SOONG_CONFIG_NAMESPACES += tequilaGlobalVars
 SOONG_CONFIG_tequilaGlobalVars += \
     additional_gralloc_10_usage_bits \
     bootloader_message_offset \
+    camera_needs_client_info_lib \
     disable_postrender_cleanup \
     has_legacy_camera_hal1 \
     has_memfd_backport \
@@ -62,6 +63,7 @@ SOONG_CONFIG_tequilaQcomVars += \
 endif
 
 # Soong bool variables
+SOONG_CONFIG_tequilaGlobalVars_camera_needs_client_info_lib := $(TARGET_CAMERA_NEEDS_CLIENT_INFO_LIB)
 SOONG_CONFIG_tequilaGlobalVars_disable_postrender_cleanup := $(TARGET_DISABLE_POSTRENDER_CLEANUP)
 SOONG_CONFIG_tequilaGlobalVars_has_legacy_camera_hal1 := $(TARGET_HAS_LEGACY_CAMERA_HAL1)
 SOONG_CONFIG_tequilaGlobalVars_has_memfd_backport := $(TARGET_HAS_MEMFD_BACKPORT)
