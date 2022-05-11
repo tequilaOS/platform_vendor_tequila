@@ -182,9 +182,12 @@ endif
 PRODUCT_PACKAGES += \
     RepainterServicePriv \
 
-# Dex preopt
+# SystemUI
 PRODUCT_DEXPREOPT_SPEED_APPS += \
     SystemUI
+
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    dalvik.vm.systemuicompilerfilter=speed
 
 PRODUCT_PACKAGE_OVERLAYS += \
     vendor/tequila/overlay/common
