@@ -1,2 +1,2 @@
-# Include LineageOS versions
-include $(TOPDIR)vendor/lineage/build/core/main_version.mk
+# Include tequilaOS versions
+include $(TOPDIR)vendor/tequila/build/core/main_version.mk
