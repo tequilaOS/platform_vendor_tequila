@@ -598,3 +598,7 @@ function fixup_common_out_dir() {
         mkdir -p ${common_out_dir}
     fi
 }
+
+function release() {
+    $ANDROID_BUILD_TOP/vendor/tequila/tools/release.py $@
+}
