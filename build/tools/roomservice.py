@@ -134,7 +134,7 @@ def get_from_manifest(devicename):
         lm = ElementTree.Element("manifest")
 
     for localpath in lm.findall("project"):
-        if re.search("android_device_.*_%s$" % device, localpath.get("name")):
+        if re.search("platform_device_.*_%s$" % device, localpath.get("name")):
             return localpath.get("path")
 
     return None
@@ -271,10 +271,10 @@ if depsonly:
 else:
     for repository in repositories:
         repo_name = repository['name']
-        if re.match(r"^device_[^_]*_" + device + "$", repo_name):
+        if re.match(r"^platform_device_[^_]*_" + device + "$", repo_name):
             print("Found repository: %s" % repository['name'])
             
-            manufacturer = repo_name.replace("android_device_", "").replace("_" + device, "")
+            manufacturer = repo_name.replace("platform_device_", "").replace("_" + device, "")
             
             print("Default revision: %s" % default_revision)
             print("Checking branch info")
