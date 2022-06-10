@@ -33,7 +33,7 @@ try:
     zip = os.path.abspath(sys.argv[1])
     zipName = zip.split("/")[-1]
 
-    if "tequila" not in zipName or "-OFFICIAL" not in zipName or "-EXPERIMENTAL" not in zipName or ".zip" not in zipName:
+    if "tequila" not in zipName and ("-OFFICIAL" not in zipName or "-EXPERIMENTAL" not in zipName) and ".zip" not in zipName:
         sys.exit("Incorrect file!")
 
 except IndexError:
