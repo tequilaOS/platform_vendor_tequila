@@ -71,6 +71,9 @@ try:
 except GithubException:
     sys.exit("Release already exists!")
 
+if isExperimental:
+    sys.exit("Release is experimental, OTA config and telegram message are not going to be created.")
+
 props = open(OUT + "/system/build.prop", "r").read().splitlines()
 for line in props:
     if "ro.build.date.utc" in line:
