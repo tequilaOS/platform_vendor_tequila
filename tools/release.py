@@ -33,7 +33,7 @@ try:
     zip = os.path.abspath(sys.argv[1])
     zipName = zip.split("/")[-1]
 
-    if "tequila" not in zipName or "-OFFICIAL" not in zipName or ".zip" not in zipName:
+    if "tequila" not in zipName or "-OFFICIAL" not in zipName or "-EXPERIMENTAL" not in zipName or ".zip" not in zipName:
         sys.exit("Incorrect file!")
 
 except IndexError:
@@ -41,6 +41,11 @@ except IndexError:
 
 codename = zipName.split("-")[5].replace(".zip", "")
 date = (zipName.split("-")[2] + "-" + zipName.split("-")[3]).split(".")[0]
+
+if zipName.split("-")[4] == "EXPERIMENTAL":
+    isExperimental = True
+else:
+    isExperimental = False
 
 print("Releasing " + date + " build for " + codename)
 
@@ -59,7 +64,7 @@ tag = date
 title = "tequila-" + tag
 
 try:
-    release = repo.create_git_release(tag, title, "Automated release of " + zipName)
+    release = repo.create_git_release(tag, title, "Automated release of " + zipName, prerelease=isExperimental)
     print("Uploading asset...")
     release.upload_asset(zip)
     print("Asset uploaded!")
