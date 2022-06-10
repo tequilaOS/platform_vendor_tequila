@@ -52,7 +52,7 @@ print("Releasing " + date + " build for " + codename)
 repo = None
 repos = g.get_organization("tequilaOS").get_repos()
 for r in repos:  
-    if codename in r.name and "device_" in r.name:
+    if codename in r.name and "platform_device_" in r.name:
         repo = r
         print("Repo found for your device: " + repo.name)
         break
