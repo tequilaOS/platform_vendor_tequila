@@ -406,7 +406,7 @@ function repolastsync() {
 }
 
 function reposync() {
-    repo sync -j 4 "$@"
+    repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all) "$@"
 }
 
 function repodiff() {
