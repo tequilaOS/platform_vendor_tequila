@@ -40,7 +40,7 @@ except ImportError:
 from xml.etree import ElementTree
 
 default_remote = "tequila"
-default_revision = "sombrero"
+tequila_snippet = ".repo/manifests/tequila.xml"
 
 product = sys.argv[1]
 
@@ -126,6 +126,16 @@ def get_manifest_path():
     except IndexError:
         return ".repo/manifests/{}".format(m.find("include").get("name"))
 
+def get_default_revision():
+    manifest = ElementTree.parse(tequila_snippet)
+    remotes = manifest.findall("remote")
+    for remote in remotes:
+        if remote.get("name") == default_remote:
+            revision = remote.get("revision")
+            break
+
+    return revision.replace('refs/heads/', '').replace('refs/tags/', '')
+
 def get_from_manifest(devicename):
     try:
         lm = ElementTree.parse(".repo/local_manifests/roomservice.xml")
@@ -163,7 +173,7 @@ def is_in_manifest(projectpath):
 
     # ... and don't forget the tequila snippet
     try:
-        lm = ElementTree.parse(".repo/manifests/snippets/tequila.xml")
+        lm = ElementTree.parse(tequila_snippet)
         lm = lm.getroot()
     except:
         lm = ElementTree.Element("manifest")
@@ -194,19 +204,19 @@ def add_to_manifest(repositories, fallback_branch = None):
             "name": "%s" % repo_name })
 
         if 'branch' in repository:
+            print("Using %s branch for %s" % (repository['branch'], repo_name))
             project.set('revision',repository['branch'])
         elif fallback_branch:
             print("Using fallback branch %s for %s" % (fallback_branch, repo_name))
             project.set('revision', fallback_branch)
         else:
-            print("Using default branch for %s" % repo_name)
-            project.set('revision', default_revision)
+            print("Using default branch (%s) for %s" % (get_default_revision(), repo_name))
 
         if 'remote' in repository:
             print("Using %s remote for %s" % (repository['remote'], repo_name))
             project.set('remote',repository['remote'])
         else:
-            print("Using tequila remote for %s" % repo_name)
+            print("Using default remote (%s) for %s" % (default_remote, repo_name))
             project.set('remote', default_remote)
 
         lm.append(project)
@@ -276,6 +286,7 @@ else:
             
             manufacturer = repo_name.replace("platform_device_", "").replace("_" + device, "")
             
+            default_revision = get_default_revision()
             print("Default revision: %s" % default_revision)
             print("Checking branch info")
             githubreq = urllib.request.Request(repository['branches_url'].replace('{/branch}', ''))
