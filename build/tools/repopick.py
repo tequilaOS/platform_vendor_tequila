@@ -153,12 +153,12 @@ def fetch_query(remote_url, query):
 
 
 if __name__ == '__main__':
-    # Default to LineageOS Gerrit
-    default_gerrit = 'https://review.lineageos.org'
+    # Default to tequilaOS Gerrit
+    default_gerrit = 'https://review.tequilaOS.pl'
 
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description=textwrap.dedent('''\
         repopick.py is a utility to simplify the process of cherry picking
-        patches from LineageOS's Gerrit instance (or any gerrit instance of your choosing)
+        patches from tequilaOS's Gerrit instance (or any gerrit instance of your choosing)
 
         Given a list of change numbers, repopick will cd into the project path
         and cherry pick the latest patch available.
@@ -261,6 +261,7 @@ if __name__ == '__main__':
     for project in projects:
         name = project.get('name')
         # when name and path are equal, "repo manifest" doesn't return a path at all, so fall back to name
+        print(project.get('name'))
         path = project.get('path', name)
         revision = project.get('upstream')
         if revision is None:
@@ -372,6 +373,13 @@ if __name__ == '__main__':
         #   - check that the project path exists
         project_path = None
 
+        print(item['project'])
+        print(item['branch'])
+
+
+        # Remove tequilaOS prefix from project name
+        item['project'] = item['project'].replace("tequilaOS/", "")
+
         if item['project'] in project_name_to_data and item['branch'] in project_name_to_data[item['project']]:
             project_path = project_name_to_data[item['project']][item['branch']]
         elif args.path:
@@ -431,15 +439,15 @@ if __name__ == '__main__':
         else:
             method = 'ssh'
 
-        # Try fetching from GitHub first if using default gerrit
+        # Try fetching from tequilaOS first if using default gerrit
         if args.gerrit == default_gerrit:
             if args.verbose:
-                print('Trying to fetch the change from GitHub')
+                print('Trying to fetch the change from tequilaOS')
 
             if args.pull:
-                cmd = ['git pull --no-edit github', item['fetch'][method]['ref']]
+                cmd = ['git pull --no-edit tequilagerrit', item['fetch'][method]['ref']]
             else:
-                cmd = ['git fetch github', item['fetch'][method]['ref']]
+                cmd = ['git fetch tequilagerrit', item['fetch'][method]['ref']]
             if args.quiet:
                 cmd.append('--quiet')
             else:
@@ -451,10 +459,10 @@ if __name__ == '__main__':
                 sys.exit(result)
         # Check if it worked
         if args.gerrit != default_gerrit or os.stat(FETCH_HEAD).st_size == 0:
-            # If not using the default gerrit or github failed, fetch from gerrit.
+            # If not using the default gerrit or tequilagerrit failed, fetch from gerrit.
             if args.verbose:
                 if args.gerrit == default_gerrit:
-                    print('Fetching from GitHub didn\'t work, trying to fetch the change from Gerrit')
+                    print('Fetching from tequilaOS didn\'t work, trying to fetch the change from Gerrit')
                 else:
                     print('Fetching from {0}'.format(args.gerrit))
 
