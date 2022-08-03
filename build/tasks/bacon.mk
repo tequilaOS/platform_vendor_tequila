@@ -24,4 +24,12 @@ SHA256 := prebuilts/build-tools/path/$(HOST_PREBUILT_TAG)/sha256sum
 bacon: $(INTERNAL_OTA_PACKAGE_TARGET)
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(TEQUILA_TARGET_PACKAGE)
 	$(hide) $(SHA256) $(TEQUILA_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(TEQUILA_TARGET_PACKAGE).sha256sum
-	@echo "Package Complete: $(TEQUILA_TARGET_PACKAGE)" >&2
+        @echo "                                                     "
+        @echo "       __                   ____      ____  _____    "
+        @echo "      / /____  ________  __/_/ /_____/ __ \/ ___/    "
+        @echo "     / __/ _ \/ __  / / / / / / __  / / / /\__ \     "
+        @echo "    / /_/  __/ /_/ / /_/ / / / /_/ / /_/ /___/ /     "
+        @echo "    \__/\___/\__  /\____/_/_/\____/\____//____/      "
+        @echo "               /_/                                   "
+        @echo "                                                     "
+	@echo "Package: $(TEQUILA_TARGET_PACKAGE)"
