@@ -193,6 +193,8 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
 PRODUCT_PACKAGE_OVERLAYS += \
     vendor/tequila/overlay/common
 
+$(call inherit-product, vendor/tequila/config/bootanimation.mk)
+
 $(call inherit-product, vendor/tequila/config/version.mk)
 
 $(call inherit-product, vendor/tequila/config/sepolicy.mk)
