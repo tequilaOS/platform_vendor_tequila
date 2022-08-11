@@ -44,14 +44,14 @@ print("I: Releasing " + date + " build for " + codename)
 
 repo = None
 repos = g.get_organization("tequilaOS").get_repos()
-for r in repos:  
+for r in repos:
     if codename in r.name and "platform_device_" in r.name:
         repo = r
         print("I: Repo found for your device: " + repo.name)
         break
 
 if not repo:
-    sys.exit("\nE: Can't find repo for " + codename) 
+    sys.exit("\nE: Can't find repo for " + codename)
 
 tag = date
 title = "tequila-" + tag
@@ -101,5 +101,5 @@ jsonFile.close()
 
 ota_repo = Repo("tequila_ota")
 ota_repo.git.add("devices/" + codename + ".json")
-ota_repo.index.commit("ota: " + codename + "-" + date)
-ota_repo.remote(name="tequila").push()
+sha = ota_repo.index.commit("ota: " + codename + "-" + date + "\n")
+ota_repo.git.push("ssh://review.tequilaos.pl:29418/tequilaOS/tequila_ota", str(sha) + ":refs/for/sombrero")
