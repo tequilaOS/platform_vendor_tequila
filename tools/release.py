@@ -61,8 +61,8 @@ try:
     print("I: Uploading asset...")
     release.upload_asset(zip)
     print("I: Asset uploaded!")
-except GithubException:
-    sys.exit("E: Release already exists!")
+except GithubException as error:
+    sys.exit("E: Failed creating release: " + error.data['errors'][0]['code'])
 
 print("Released " + title + "!")
 print("https://github.com/tequilaOS/" + repo.name + "/releases/tag/" + tag)
