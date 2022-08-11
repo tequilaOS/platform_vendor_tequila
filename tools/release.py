@@ -101,5 +101,5 @@ jsonFile.close()
 
 ota_repo = Repo("tequila_ota")
 ota_repo.git.add("devices/" + codename + ".json")
-ota_repo.index.commit("ota: " + codename + "-" + date)
-ota_repo.remote(name="tequila").push()
+sha = ota_repo.index.commit("ota: " + codename + "-" + date + "\n")
+ota_repo.git.push("ssh://review.tequilaos.pl:29418/tequilaOS/tequila_ota", str(sha) + ":refs/for/sombrero")
