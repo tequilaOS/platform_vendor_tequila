@@ -1,4 +1,4 @@
-TEQUILA_PLATFORM_VERSION = 13
+TEQUILA_PLATFORM_VERSION = tobacco
 
 TEQUILA_BUILD_DATE := $(shell date -u +%Y%m%d-%H%M)
 
