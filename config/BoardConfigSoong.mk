@@ -34,7 +34,6 @@ SOONG_CONFIG_tequilaGlobalVars += \
     camera_needs_client_info_lib \
     disable_postrender_cleanup \
     needs_camera_boottime \
-    needs_netd_direct_connect_rule \
     target_init_vendor_lib \
     target_ld_shim_libs \
     target_process_sdk_version_override \
@@ -59,7 +58,6 @@ SOONG_CONFIG_tequilaGlobalVars_camera_needs_client_info := $(TARGET_CAMERA_NEEDS
 SOONG_CONFIG_tequilaGlobalVars_camera_needs_client_info_lib := $(TARGET_CAMERA_NEEDS_CLIENT_INFO_LIB)
 SOONG_CONFIG_tequilaGlobalVars_disable_postrender_cleanup := $(TARGET_DISABLE_POSTRENDER_CLEANUP)
 SOONG_CONFIG_tequilaGlobalVars_needs_camera_boottime := $(TARGET_CAMERA_BOOTTIME_TIMESTAMP)
-SOONG_CONFIG_tequilaGlobalVars_needs_netd_direct_connect_rule := $(TARGET_NEEDS_NETD_DIRECT_CONNECT_RULE)
 SOONG_CONFIG_tequilaQcomVars_supports_extended_compress_format := $(AUDIO_FEATURE_ENABLED_EXTENDED_COMPRESS_FORMAT)
 SOONG_CONFIG_tequilaQcomVars_uses_pre_uplink_features_netmgrd := $(TARGET_USES_PRE_UPLINK_FEATURES_NETMGRD)
 
