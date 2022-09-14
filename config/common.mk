@@ -93,8 +93,7 @@ PRODUCT_RESTRICT_VENDOR_FILES := false
 
 ifneq ($(TARGET_DISABLE_EPPE),true)
 # Require all requested packages to exist
-$(call enforce-product-packages-exist-internal,$(wildcard device/*/$(TEQUILA_BUILD)/$(TARGET_PRODUCT).mk),)
-endif
+$(call enforce-product-packages-exist-internal,$(wildcard device/*/$(LINEAGE_BUILD)/$(TARGET_PRODUCT).mk),product_manifest.xml)
 
 PRODUCT_COPY_FILES += \
     vendor/tequila/prebuilt/common/etc/init/init.tequila-updater.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.tequila-updater.rc
