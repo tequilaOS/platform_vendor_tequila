@@ -29,6 +29,7 @@ $(foreach v,$(EXPORT_TO_SOONG),$(eval $(call addVar,$(v))))
 SOONG_CONFIG_NAMESPACES += tequilaGlobalVars
 SOONG_CONFIG_tequilaGlobalVars += \
     additional_gralloc_10_usage_bits \
+    gralloc_handle_has_reserved_size \
     bootloader_message_offset \
     camera_needs_client_info \
     camera_needs_client_info_lib \
@@ -64,6 +65,7 @@ SOONG_CONFIG_tequilaQcomVars += \
 endif
 
 # Soong bool variables
+SOONG_CONFIG_tequilaGlobalVars_gralloc_handle_has_reserved_size := $(TARGET_GRALLOC_HANDLE_HAS_RESERVED_SIZE)
 SOONG_CONFIG_tequilaGlobalVars_camera_needs_client_info := $(TARGET_CAMERA_NEEDS_CLIENT_INFO)
 SOONG_CONFIG_tequilaGlobalVars_camera_needs_client_info_lib := $(TARGET_CAMERA_NEEDS_CLIENT_INFO_LIB)
 SOONG_CONFIG_tequilaGlobalVars_disable_postrender_cleanup := $(TARGET_DISABLE_POSTRENDER_CLEANUP)
@@ -81,6 +83,7 @@ SOONG_CONFIG_tequilaQcomVars_uses_pre_uplink_features_netmgrd := $(TARGET_USES_P
 SOONG_CONFIG_tequilaQcomVars_uses_qcom_bsp_legacy := $(TARGET_USES_QCOM_BSP_LEGACY)
 
 # Set default values
+TARGET_GRALLOC_HANDLE_HAS_RESERVED_SIZE ?= false
 BOOTLOADER_MESSAGE_OFFSET ?= 0
 TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS ?= 0
 TARGET_INIT_VENDOR_LIB ?= vendor_init
