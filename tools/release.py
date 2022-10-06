@@ -54,7 +54,7 @@ if not repo:
     sys.exit("\nE: Can't find repo for " + codename) 
 
 tag = date
-title = "tequila-" + tag
+title = zipName.split("-")[1] + tag
 
 try:
     release = repo.create_git_release(tag, title, "Automated release of " + zipName, prerelease=isExperimental)
