@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from pathlib import Path
+import glob
 import json
 import os
 import sys
@@ -56,11 +57,31 @@ if not repo:
 tag = date
 title = zipName.split("-")[1] + "-" + tag
 
+additional_files = [
+    "boot",
+    "dtbo",
+    "vendor_boot"
+]
+
+additional_files_path = OUT + "/obj/PACKAGING/target_files_intermediates/tequila_" + codename + "*/IMAGES/"
+
 try:
     release = repo.create_git_release(tag, title, "Automated release of " + zipName, prerelease=isExperimental)
-    print("I: Uploading asset...")
+    print("I: Uploading build...")
     release.upload_asset(zip)
-    print("I: Asset uploaded!")
+    try:
+        recovery_file = glob.glob(additional_files_path + "recovery.img")[0]
+        print("I: Uploading recovery...")
+        release.upload_asset(recovery_file)
+    except IndexError:
+        for file_name in additional_files:
+            try:
+                file = glob.glob(additional_files_path + file_name + ".img")[0]
+                print("I: Uploading " + file_name + "...")
+                release.upload_asset(file)
+            except IndexError:
+                pass
+    print("I: Assets uploaded!")
 except GithubException as error:
     sys.exit("E: Failed creating release: " + error.data['errors'][0]['code'])
 
