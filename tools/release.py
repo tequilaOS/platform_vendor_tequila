@@ -56,11 +56,24 @@ if not repo:
 tag = date
 title = zipName.split("-")[1] + "-" + tag
 
+additional_files = [
+    "boot",
+    "dtbo",
+    "vendor_boot"
+]
+
+additional_files_path = OUT + "/obj/PACKAGING/target_files_intermediates/tequila_" + codename + "*/IMAGES/"
+
 try:
     release = repo.create_git_release(tag, title, "Automated release of " + zipName, prerelease=isExperimental)
-    print("I: Uploading asset...")
+    print("I: Uploading build...")
     release.upload_asset(zip)
-    print("I: Asset uploaded!")
+    for file_name in additional_files:
+        file = additional_files_path + file_name
+        if os.exists(file):
+            print("I: Uploading " + file_name + "...")
+            release.upload_asset(file)
+    print("I: Assets uploaded!")
 except GithubException as error:
     sys.exit("E: Failed creating release: " + error.data['errors'][0]['code'])
 
