@@ -102,6 +102,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     ThemePicker
 
+# TouchGestures
+PRODUCT_PACKAGES += \
+    TouchGestures
+
 # Config
 PRODUCT_PACKAGES += \
     SimpleDeviceConfig
