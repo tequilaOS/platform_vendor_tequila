@@ -171,5 +171,5 @@
     <string name="config_clockFontFamily" translatable="false" />
 
     <!-- Default component for QR code scanner -->
-    <string name="config_defaultQrCodeComponent">org.lineageos.aperture/.QrScannerActivity</string>
+    <string name="config_defaultQrCodeComponent" translatable="false">org.lineageos.aperture/.QrScannerActivity</string>
 </resources>
