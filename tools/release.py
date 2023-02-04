@@ -120,7 +120,7 @@ jsonFile = open(ANDROID_BUILD_TOP + "/tequila_ota/devices/" + codename + ".json"
 jsonFile.write(json.dumps(template, indent=2))
 jsonFile.close()
 
-ota_repo = Repo("tequila_ota")
+ota_repo = Repo(ANDROID_BUILD_TOP + "/tequila_ota")
 ota_repo.git.add("devices/" + codename + ".json")
 sha = ota_repo.index.commit("ota: " + codename + "-" + date + "\n")
 ota_repo.git.push("ssh://review.tequilaos.pl:29418/tequilaOS/tequila_ota", str(sha) + ":refs/for/main")
