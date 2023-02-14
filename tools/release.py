@@ -94,7 +94,8 @@ print("Released " + title + "!")
 print("https://github.com/tequilaOS/" + repo.name + "/releases/tag/" + tag)
 
 if isExperimental:
-    sys.exit("W: Release is experimental, skipping OTA config generation!")
+    print("W: Release is experimental, skipping OTA config generation!")
+    sys.exit(0)
 
 def getProp(prop):
     props = open(OUT + "/system/build.prop", "r").read().splitlines()
