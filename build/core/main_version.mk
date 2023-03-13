@@ -10,4 +10,5 @@ ADDITIONAL_SYSTEM_PROPERTIES += \
     ro.tequila.display.version=$(TEQUILA_DISPLAY_VERSION) \
     ro.tequila.releasetype=$(TEQUILA_BUILDTYPE) \
     ro.tequila.build.version=$(TEQUILA_PLATFORM_VERSION) \
+    ro.tequila.variant=$(TEQUILA_VARIANT) \
     ro.modversion=$(TEQUILA_VERSION) \
