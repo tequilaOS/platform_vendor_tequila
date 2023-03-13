@@ -38,8 +38,9 @@ try:
 except IndexError:
     sys.exit("E: Incorrect file!")
 
-codename = zipName.split("-")[5].replace(".zip", "")
+codename = zipName.split("-")[6].replace(".zip", "")
 date = (zipName.split("-")[2] + "-" + zipName.split("-")[3]).split(".")[0]
+variant = zipName.split("-")[5]
 
 if zipName.split("-")[4] == "EXPERIMENTAL":
     isExperimental = True
@@ -60,7 +61,7 @@ if not repo:
     sys.exit("\nE: Can't find repo for " + codename) 
 
 tag = date
-title = zipName.split("-")[1] + "-" + tag
+title = zipName.split("-")[1] + "-" + tag + "-" + variant
 
 additional_files = [
     "boot",
@@ -117,7 +118,8 @@ template = {
       "id": checksum,
       "size": filesize,
       "url": url,
-      "version": version
+      "version": version,
+      "variant": variant
     }
   ]
 }
