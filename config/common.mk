@@ -200,6 +200,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 PRODUCT_PACKAGE_OVERLAYS += \
     vendor/tequila/overlay/common
 
+$(call inherit-product, vendor/rkicons/product.mk)
 PRODUCT_PACKAGES += \
     NavigationBarModeGesturalOverlayFS \
     NetworkStackOverlay \
