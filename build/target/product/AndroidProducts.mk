@@ -19,9 +19,33 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/tequila_gsi_arm64.mk \
     $(LOCAL_DIR)/tequila_gsi_x86.mk \
     $(LOCAL_DIR)/tequila_gsi_x86_64.mk \
+    $(LOCAL_DIR)/tequila_gsi_car_arm64.mk \
+    $(LOCAL_DIR)/tequila_gsi_car_x86_64.mk \
+    $(LOCAL_DIR)/tequila_gsi_tv_arm.mk \
+    $(LOCAL_DIR)/tequila_gsi_tv_arm64.mk \
+    $(LOCAL_DIR)/tequila_gsi_tv_x86.mk \
+    $(LOCAL_DIR)/tequila_gsi_tv_x86_64.mk \
+    $(LOCAL_DIR)/tequila_sdk_car_arm64.mk \
+    $(LOCAL_DIR)/tequila_sdk_car_x86_64.mk \
+    $(LOCAL_DIR)/tequila_sdk_phone_x86.mk \
+    $(LOCAL_DIR)/tequila_sdk_phone_x86_64.mk \
+    $(LOCAL_DIR)/tequila_sdk_tv_arm.mk \
+    $(LOCAL_DIR)/tequila_sdk_tv_x86.mk
 
 COMMON_LUNCH_CHOICES := \
     tequila_gsi_arm-userdebug \
     tequila_gsi_arm64-userdebug \
     tequila_gsi_x86-userdebug \
     tequila_gsi_x86_64-userdebug \
+    tequila_gsi_car_arm64-userdebug \
+    tequila_gsi_car_x86_64-userdebug \
+    tequila_gsi_tv_arm-userdebug \
+    tequila_gsi_tv_arm64-userdebug \
+    tequila_gsi_tv_x86-userdebug \
+    tequila_gsi_tv_x86_64-userdebug \
+    tequila_sdk_car_arm64-userdebug \
+    tequila_sdk_car_x86_64-userdebug \
+    tequila_sdk_phone_x86-userdebug \
+    tequila_sdk_phone_x86_64-userdebug \
+    tequila_sdk_tv_arm-userdebug \
+    tequila_sdk_tv_x86-userdebug
