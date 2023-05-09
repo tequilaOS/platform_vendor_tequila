@@ -242,7 +242,7 @@ function tequilagerrit() {
         $FUNCNAME help
         return 1
     fi
-    local user=`git config --get review.review.tequilaos.pl.username`
+    local user=`git config --get review.review.tequilaos.org.username`
     local review=`git config --get remote.tequila.review`
     local project=`git config --get remote.tequila.projectname`
     local command=$1
@@ -490,7 +490,7 @@ function tequilarebase() {
     echo "Bringing it up to date..."
     repo sync .
     echo "Fetching change..."
-    git fetch "http://review.tequilaos.pl/p/$repo" "refs/changes/$refs" && git cherry-pick FETCH_HEAD
+    git fetch "http://review.tequilaos.org/p/$repo" "refs/changes/$refs" && git cherry-pick FETCH_HEAD
     if [ "$?" != "0" ]; then
         echo "Error cherry-picking. Not uploading!"
         return
@@ -531,12 +531,12 @@ function tequilaremote()
         local PFX="tequilaOS/"
     fi
 
-    local TEQUILA_USER=$(git config --get review.review.tequilaos.pl.username)
+    local TEQUILA_USER=$(git config --get review.review.tequilaos.org.username)
     if [ -z "$TEQUILA_USER" ]
     then
-        git remote add tequilagerrit ssh://review.tequilaos.pl:29418/$PFX$PROJECT
+        git remote add tequilagerrit ssh://review.tequilaos.org:29418/$PFX$PROJECT
     else
-        git remote add tequilagerrit ssh://$TEQUILA_USER@review.tequilaos.pl:29418/$PFX$PROJECT
+        git remote add tequilagerrit ssh://$TEQUILA_USER@review.tequilaos.org:29418/$PFX$PROJECT
     fi
     echo "Remote 'tequilagerrit' created"
 }
