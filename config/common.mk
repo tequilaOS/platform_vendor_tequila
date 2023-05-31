@@ -89,22 +89,12 @@ PRODUCT_MINIMIZE_JAVA_DEBUG_INFO := true
 # Disable vendor restrictions
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
-# tequila packages
-ifneq ($(filter OFFICIAL EXPERIMENTAL,$(TEQUILA_BUILDTYPE)),)
-PRODUCT_PACKAGES += \
-    Updater
-endif
-
 PRODUCT_COPY_FILES += \
     vendor/tequila/prebuilt/common/etc/init/init.tequila-updater.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.tequila-updater.rc
 
 # Themes
 PRODUCT_PACKAGES += \
     ThemePicker
-
-# Config
-PRODUCT_PACKAGES += \
-    SimpleDeviceConfig
 
 # Disable RescueParty due to high risk of data loss
 PRODUCT_PRODUCT_PROPERTIES += \
@@ -119,11 +109,6 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.face_unlock_service.enabled=$(TARGET_FACE_UNLOCK_SUPPORTED)
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.biometrics.face.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.biometrics.face.xml
-endif
-
-ifneq ($(TARGET_BUILD_GAPPS),true)
-PRODUCT_PACKAGES += \
-    GmsCompat
 endif
 
 # Extra tools in tequila
@@ -179,16 +164,6 @@ endif
 # Root
 PRODUCT_PACKAGES += \
     adb_root
-ifneq ($(TARGET_BUILD_VARIANT),user)
-ifeq ($(WITH_SU),true)
-PRODUCT_PACKAGES += \
-    su
-endif
-endif
-
-# Repainter integration
-PRODUCT_PACKAGES += \
-    RepainterServicePriv \
 
 # SystemUI
 PRODUCT_DEXPREOPT_SPEED_APPS += \
@@ -203,10 +178,8 @@ PRODUCT_PACKAGE_OVERLAYS += \
     vendor/tequila/overlay/no-rro
 
 PRODUCT_PACKAGES += \
-    NavigationBarModeGesturalOverlayFS \
     NetworkStackOverlay \
-    Launcher3Overlay \
-    BlackThemeOverlay
+    Launcher3Overlay
 
 $(call inherit-product, vendor/tequila/config/fonts.mk)
 
