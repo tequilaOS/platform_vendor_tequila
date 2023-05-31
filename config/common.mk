@@ -208,8 +208,6 @@ PRODUCT_PACKAGES += \
     Launcher3Overlay \
     BlackThemeOverlay
 
-$(call inherit-product, vendor/tequila/config/bootanimation.mk)
-
 $(call inherit-product, vendor/tequila/config/fonts.mk)
 
 $(call inherit-product, vendor/tequila/config/version.mk)
