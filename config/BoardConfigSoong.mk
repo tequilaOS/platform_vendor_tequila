@@ -28,6 +28,7 @@ $(foreach v,$(EXPORT_TO_SOONG),$(eval $(call addVar,$(v))))
 
 SOONG_CONFIG_NAMESPACES += tequilaGlobalVars
 SOONG_CONFIG_tequilaGlobalVars += \
+    aapt_version_code \
     additional_gralloc_10_usage_bits \
     bootloader_message_offset \
     camera_needs_client_info \
@@ -74,6 +75,7 @@ TARGET_TRUST_USB_CONTROL_ENABLE ?= 1
 TARGET_TRUST_USB_CONTROL_DISABLE ?= 0
 
 # Soong value variables
+SOONG_CONFIG_tequilaGlobalVars_aapt_version_code := $(shell date -u +%Y%m%d)
 SOONG_CONFIG_tequilaGlobalVars_additional_gralloc_10_usage_bits := $(TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS)
 SOONG_CONFIG_tequilaGlobalVars_bootloader_message_offset := $(BOOTLOADER_MESSAGE_OFFSET)
 SOONG_CONFIG_tequilaGlobalVars_target_init_vendor_lib := $(TARGET_INIT_VENDOR_LIB)
