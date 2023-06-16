@@ -174,6 +174,4 @@ $(call inherit-product, vendor/tequila/config/fonts.mk)
 
 $(call inherit-product, vendor/tequila/config/version.mk)
 
-$(call inherit-product, vendor/google/gms/config.mk)
-
-$(call inherit-product, vendor/google/pixel/config.mk)
+$(call inherit-product, vendor/gapps/common.mk)
