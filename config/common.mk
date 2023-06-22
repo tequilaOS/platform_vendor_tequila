@@ -167,6 +167,7 @@ PRODUCT_PACKAGE_OVERLAYS += \
     vendor/tequila/overlay/no-rro
 
 PRODUCT_PACKAGES += \
+    BlackThemeOverlay \
     NetworkStackOverlay \
     Launcher3Overlay
 
