@@ -63,6 +63,7 @@ tag = date
 title = zipName.split("-")[1] + "-" + tag
 
 additional_files = [
+    "recovery",
     "boot",
     "dtbo",
     "vendor_boot"
@@ -74,18 +75,13 @@ try:
     release = repo.create_git_release(tag, title, "Automated release of " + zipName, prerelease=isExperimental)
     print("I: Uploading build...")
     release.upload_asset(zip)
-    try:
-        recovery_file = glob.glob(additional_files_path + "recovery.img")[0]
-        print("I: Uploading recovery...")
-        release.upload_asset(recovery_file)
-    except IndexError:
-        for file_name in additional_files:
-            try:
-                file = glob.glob(additional_files_path + file_name + ".img")[0]
-                print("I: Uploading " + file_name + "...")
-                release.upload_asset(file)
-            except IndexError:
-                pass
+    for file_name in additional_files:
+        try:
+            file = glob.glob(additional_files_path + file_name + ".img")[0]
+            print("I: Uploading " + file_name + "...")
+            release.upload_asset(file)
+        except IndexError:
+            pass
     print("I: Assets uploaded!")
 except GithubException as error:
     sys.exit("E: Failed creating release: " + error.data['errors'][0]['code'])
