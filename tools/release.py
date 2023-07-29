@@ -93,7 +93,8 @@ try:
             pass
     print("I: Assets uploaded!")
 except GithubException as error:
-    print(f"E: Failed creating release: {error.data['errors'][0]['code']}")
+    print("E: Failed creating release:")
+    print(error)
     sys.exit(1)
 
 print(f"Released {title}!")
@@ -112,30 +113,26 @@ def getProp(prop):
 
 
 datetime = int(getProp("ro.build.date.utc"))
-url = (
-    f"https://github.com/tequilaOS/{repo.name}/releases/download/{tag}/{zipName}"
-)
+url = f"https://github.com/tequilaOS/{repo.name}/releases/download/{tag}/{zipName}"
 with open(f"{zip}.sha256sum", "r") as f:
     checksum = f.read().split(" ")[0]
 filesize = os.path.getsize(zip)
 version = zipName.split("-")[1]
 
 template = {
-  "response": [
-    {
-      "datetime": datetime,
-      "filename": zipName,
-      "id": checksum,
-      "size": filesize,
-      "url": url,
-      "version": version,
-    }
-  ]
+    "response": [
+        {
+            "datetime": datetime,
+            "filename": zipName,
+            "id": checksum,
+            "size": filesize,
+            "url": url,
+            "version": version,
+        }
+    ]
 }
 
-with open(
-    f"{ANDROID_BUILD_TOP}/tequila_ota/devices/{codename}.json", "w"
-) as jsonFile:
+with open(f"{ANDROID_BUILD_TOP}/tequila_ota/devices/{codename}.json", "w") as jsonFile:
     jsonFile.write(json.dumps(template, indent=2))
 
 ota_repo = Repo(f"{ANDROID_BUILD_TOP}/tequila_ota")
