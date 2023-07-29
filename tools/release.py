@@ -20,6 +20,8 @@ except ImportError:
 
 
 def getProp(prop):
+    OUT = os.getenv("OUT")
+
     with open(f"{OUT}/system/build.prop", "r") as props:
         for line in props.read().splitlines():
             if prop in line:
@@ -92,12 +94,12 @@ def main():
             tag, title, f"Automated release of {zipName}", prerelease=isExperimental
         )
         print("I: Uploading build...")
-        release.upload_asset(zip)
+        # release.upload_asset(zip)
         for file_name in additional_files:
             try:
                 file = glob.glob(f"{additional_files_path}{file_name}.img")[0]
                 print(f"I: Uploading {file_name}...")
-                release.upload_asset(file)
+                # release.upload_asset(file)
             except IndexError:
                 pass
         print("I: Assets uploaded!")
