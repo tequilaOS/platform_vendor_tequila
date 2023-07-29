@@ -19,7 +19,8 @@ except ImportError:
     sys.exit(1)
 
 home = str(Path.home())
-token = str(open(home + "/.githubtoken", "r").read().strip())
+with open(home + "/.githubtoken", "r") as f:
+    token = str(f.read().strip())
 g = Github(token)
 
 ANDROID_BUILD_TOP = os.getenv("ANDROID_BUILD_TOP")
@@ -100,14 +101,15 @@ if isExperimental:
     sys.exit(0)
 
 def getProp(prop):
-    props = open(OUT + "/system/build.prop", "r").read().splitlines()
-    for line in props:
-        if prop in line:
-            return line.replace(prop + "=", "")
+    with open(OUT + "/system/build.prop", "r") as props:
+        for line in props.read().splitlines():
+            if prop in line:
+                return line.replace(prop + "=", "")
 
 datetime = int(getProp("ro.build.date.utc"))
 url = "https://github.com/tequilaOS/" + repo.name + "/releases/download/" + tag + "/" + zipName
-checksum = open(zip + ".sha256sum", "r").read().split(" ")[0]
+with open(zip + ".sha256sum", "r") as f:
+    checksum = f.read().split(" ")[0]
 filesize = os.path.getsize(zip)
 version = zipName.split("-")[1]
 
@@ -124,9 +126,8 @@ template = {
   ]
 }
 
-jsonFile = open(ANDROID_BUILD_TOP + "/tequila_ota/devices/" + codename + ".json", "w")
-jsonFile.write(json.dumps(template, indent=2))
-jsonFile.close()
+with open(ANDROID_BUILD_TOP + "/tequila_ota/devices/" + codename + ".json", "w") as jsonFile:
+    jsonFile.write(json.dumps(template, indent=2))
 
 ota_repo = Repo(ANDROID_BUILD_TOP + "/tequila_ota")
 ota_repo.git.add("devices/" + codename + ".json")
