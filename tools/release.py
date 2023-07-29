@@ -20,6 +20,8 @@ except ImportError:
 
 
 def getProp(prop):
+    OUT = os.getenv("OUT")
+
     with open(f"{OUT}/system/build.prop", "r") as props:
         for line in props.read().splitlines():
             if prop in line:
