@@ -9,12 +9,14 @@ import sys
 try:
     from github import Github, GithubException
 except ImportError:
-    sys.exit("E: Please install pygithub package via pip")
+    print("E: Please install pygithub package via pip")
+    sys.exit(1)
 
 try:
     from git import Repo
 except ImportError:
-    sys.exit("E: Please install gitpython package via pip")
+    print("E: Please install gitpython package via pip")
+    sys.exit(1)
 
 home = str(Path.home())
 token = str(open(home + "/.githubtoken", "r").read().strip())
@@ -33,10 +35,12 @@ try:
     zipName = zip.split("/")[-1]
 
     if "tequila" not in zipName and ("-OFFICIAL" not in zipName or "-EXPERIMENTAL" not in zipName) and ".zip" not in zipName:
-        sys.exit("E: Incorrect file!")
+        print("E: Incorrect file!")
+        sys.exit(1)
 
 except IndexError:
-    sys.exit("E: Incorrect file!")
+    print("E: Incorrect file!")
+    sys.exit(1)
 
 codename = zipName.split("-")[5].replace(".zip", "")
 date = (zipName.split("-")[2] + "-" + zipName.split("-")[3]).split(".")[0]
@@ -57,7 +61,8 @@ for r in repos:
         break
 
 if not repo:
-    sys.exit("\nE: Can't find repo for " + codename) 
+    print("\nE: Can't find repo for " + codename) 
+    sys.exit(1)
 
 tag = date
 title = zipName.split("-")[1] + "-" + tag
@@ -84,7 +89,8 @@ try:
             pass
     print("I: Assets uploaded!")
 except GithubException as error:
-    sys.exit("E: Failed creating release: " + error.data['errors'][0]['code'])
+    print("E: Failed creating release: " + error.data['errors'][0]['code'])
+    sys.exit(1)
 
 print("Released " + title + "!")
 print("https://github.com/tequilaOS/" + repo.name + "/releases/tag/" + tag)
