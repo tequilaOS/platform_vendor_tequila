@@ -83,17 +83,18 @@ try:
         tag, title, f"Automated release of {zipName}", prerelease=isExperimental
     )
     print("I: Uploading build...")
-    release.upload_asset(zip)
+    # release.upload_asset(zip)
     for file_name in additional_files:
         try:
             file = glob.glob(f"{additional_files_path}{file_name}.img")[0]
             print(f"I: Uploading {file_name}...")
-            release.upload_asset(file)
+            # release.upload_asset(file)
         except IndexError:
             pass
     print("I: Assets uploaded!")
 except GithubException as error:
-    print(f"E: Failed creating release: {error.data['errors'][0]['code']}")
+    print("E: Failed creating release:")
+    print(error)
     sys.exit(1)
 
 print(f"Released {title}!")
@@ -101,7 +102,7 @@ print(f"https://github.com/tequilaOS/{repo.name}/releases/tag/{tag}")
 
 if isExperimental:
     print("W: Release is experimental, skipping OTA config generation!")
-    sys.exit(0)
+    # sys.exit(0)
 
 
 def getProp(prop):
@@ -112,31 +113,29 @@ def getProp(prop):
 
 
 datetime = int(getProp("ro.build.date.utc"))
-url = (
-    f"https://github.com/tequilaOS/{repo.name}/releases/download/{tag}/{zipName}"
-)
+url = f"https://github.com/tequilaOS/{repo.name}/releases/download/{tag}/{zipName}"
 with open(f"{zip}.sha256sum", "r") as f:
     checksum = f.read().split(" ")[0]
 filesize = os.path.getsize(zip)
 version = zipName.split("-")[1]
 
 template = {
-  "response": [
-    {
-      "datetime": datetime,
-      "filename": zipName,
-      "id": checksum,
-      "size": filesize,
-      "url": url,
-      "version": version,
-    }
-  ]
+    "response": [
+        {
+            "datetime": datetime,
+            "filename": zipName,
+            "id": checksum,
+            "size": filesize,
+            "url": url,
+            "version": version,
+        }
+    ]
 }
 
-with open(
-    f"{ANDROID_BUILD_TOP}/tequila_ota/devices/{codename}.json", "w"
-) as jsonFile:
+with open(f"{ANDROID_BUILD_TOP}/tequila_ota/devices/{codename}.json", "w") as jsonFile:
     jsonFile.write(json.dumps(template, indent=2))
+
+sys.exit(0)
 
 ota_repo = Repo(f"{ANDROID_BUILD_TOP}/tequila_ota")
 ota_repo.git.add(f"devices/{codename}.json")
