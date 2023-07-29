@@ -19,7 +19,7 @@ except ImportError:
     sys.exit(1)
 
 home = str(Path.home())
-with open(home + "/.githubtoken", "r") as f:
+with open(f"{home}/.githubtoken", "r") as f:
     token = str(f.read().strip())
 g = Github(token)
 
@@ -48,56 +48,56 @@ except IndexError:
     sys.exit(1)
 
 codename = zipName.split("-")[5].replace(".zip", "")
-date = (zipName.split("-")[2] + "-" + zipName.split("-")[3]).split(".")[0]
+date = (f"{zipName.split('-')[2]}-{zipName.split('-')[3]}").split(".")[0]
 
 if zipName.split("-")[4] == "EXPERIMENTAL":
     isExperimental = True
 else:
     isExperimental = False
 
-print("I: Releasing " + date + " build for " + codename)
+print(f"I: Releasing {date} build for {codename}")
 
 repo = None
 repos = g.get_organization("tequilaOS").get_repos()
 for r in repos:
     if codename in r.name and "platform_device_" in r.name:
         repo = r
-        print("I: Repo found for your device: " + repo.name)
+        print(f"I: Repo found for your device: {repo.name}")
         break
 
 if not repo:
-    print("\nE: Can't find repo for " + codename)
+    print(f"\nE: Can't find repo for {codename}")
     sys.exit(1)
 
 tag = date
-title = zipName.split("-")[1] + "-" + tag
+title = f"{zipName.split('-')[1]}-{tag}"
 
 additional_files = ["recovery", "boot", "dtbo", "vendor_boot"]
 
 additional_files_path = (
-    OUT + "/obj/PACKAGING/target_files_intermediates/tequila_" + codename + "*/IMAGES/"
+    f"{OUT}/obj/PACKAGING/target_files_intermediates/tequila_{codename}*/IMAGES/"
 )
 
 try:
     release = repo.create_git_release(
-        tag, title, "Automated release of " + zipName, prerelease=isExperimental
+        tag, title, f"Automated release of {zipName}", prerelease=isExperimental
     )
     print("I: Uploading build...")
     release.upload_asset(zip)
     for file_name in additional_files:
         try:
-            file = glob.glob(additional_files_path + file_name + ".img")[0]
-            print("I: Uploading " + file_name + "...")
+            file = glob.glob(f"{additional_files_path}{file_name}.img")[0]
+            print(f"I: Uploading {file_name}...")
             release.upload_asset(file)
         except IndexError:
             pass
     print("I: Assets uploaded!")
 except GithubException as error:
-    print("E: Failed creating release: " + error.data["errors"][0]["code"])
+    print(f"E: Failed creating release: {error.data['errors'][0]['code']}")
     sys.exit(1)
 
-print("Released " + title + "!")
-print("https://github.com/tequilaOS/" + repo.name + "/releases/tag/" + tag)
+print(f"Released {title}!")
+print(f"https://github.com/tequilaOS/{repo.name}/releases/tag/{tag}")
 
 if isExperimental:
     print("W: Release is experimental, skipping OTA config generation!")
@@ -105,22 +105,17 @@ if isExperimental:
 
 
 def getProp(prop):
-    with open(OUT + "/system/build.prop", "r") as props:
+    with open(f"{OUT}/system/build.prop", "r") as props:
         for line in props.read().splitlines():
             if prop in line:
-                return line.replace(prop + "=", "")
+                return line.replace(f"{prop}=", "")
 
 
 datetime = int(getProp("ro.build.date.utc"))
 url = (
-    "https://github.com/tequilaOS/"
-    + repo.name
-    + "/releases/download/"
-    + tag
-    + "/"
-    + zipName
+    f"https://github.com/tequilaOS/{repo.name}/releases/download/{tag}/{zipName}"
 )
-with open(zip + ".sha256sum", "r") as f:
+with open(f"{zip}.sha256sum", "r") as f:
     checksum = f.read().split(" ")[0]
 filesize = os.path.getsize(zip)
 version = zipName.split("-")[1]
@@ -139,14 +134,14 @@ template = {
 }
 
 with open(
-    ANDROID_BUILD_TOP + "/tequila_ota/devices/" + codename + ".json", "w"
+    f"{ANDROID_BUILD_TOP}/tequila_ota/devices/{codename}.json", "w"
 ) as jsonFile:
     jsonFile.write(json.dumps(template, indent=2))
 
-ota_repo = Repo(ANDROID_BUILD_TOP + "/tequila_ota")
-ota_repo.git.add("devices/" + codename + ".json")
-sha = ota_repo.index.commit("ota: " + codename + "-" + date + "\n")
+ota_repo = Repo(f"{ANDROID_BUILD_TOP}/tequila_ota")
+ota_repo.git.add(f"devices/{codename}.json")
+sha = ota_repo.index.commit(f"ota: {codename}-{date}\n")
 ota_repo.git.push(
-    "ssh://" + GERRIT_USERNAME + "@review.tequilaos.org:29418/tequilaOS/tequila_ota",
-    str(sha) + ":refs/for/main",
+    f"ssh://{GERRIT_USERNAME}@review.tequilaos.org:29418/tequilaOS/tequila_ota",
+    f"{sha}:refs/for/main",
 )
