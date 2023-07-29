@@ -172,6 +172,7 @@ PRODUCT_PACKAGE_OVERLAYS += \
 
 PRODUCT_PACKAGES += \
     BlackThemeOverlay \
+    NavigationBarModeGesturalOverlayFS \
     NetworkStackOverlay \
     Launcher3Overlay
 
