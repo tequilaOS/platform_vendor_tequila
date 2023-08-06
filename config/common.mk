@@ -182,6 +182,10 @@ PRODUCT_PACKAGES += \
     Updater
 endif
 
+# SimpleDeviceConfig
+PRODUCT_PACKAGES += \
+    SimpleDeviceConfig
+
 $(call inherit-product, vendor/tequila/config/fonts.mk)
 $(call inherit-product, vendor/tequila/config/sepolicy.mk)
 $(call inherit-product, vendor/tequila/config/version.mk)
