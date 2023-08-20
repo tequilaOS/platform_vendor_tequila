@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from pathlib import Path
+import argparse
 import glob
 import json
 import os
@@ -29,6 +30,12 @@ def getProp(prop):
 
 
 def main():
+    parser = argparse.ArgumentParser(prog="tequilaOS releaser")
+    parser.add_argument("zip")
+    parser.add_argument("-s", "--submit", action="store_true")
+
+    args = parser.parse_args()
+
     home = str(Path.home())
     with open(f"{home}/.githubtoken", "r") as f:
         token = str(f.read().strip())
@@ -43,7 +50,7 @@ def main():
         GERRIT_USERNAME = os.getenv("USER")
 
     try:
-        zip = os.path.abspath(sys.argv[1])
+        zip = os.path.abspath(args.zip)
         zipName = zip.split("/")[-1]
 
         if (
@@ -143,11 +150,13 @@ def main():
     ota_repo = Repo(f"{ANDROID_BUILD_TOP}/tequila_ota")
     ota_repo.git.add(f"devices/{codename}.json")
     sha = ota_repo.index.commit(f"ota: {codename}-{date}\n")
-    ota_repo.git.push(
-        f"ssh://{GERRIT_USERNAME}@review.tequilaos.org:29418/tequilaOS/tequila_ota",
-        f"{sha}:refs/for/main",
-    )
 
+    if args.submit:
+        cmd = (f"ssh://{GERRIT_USERNAME}@review.tequilaos.org:29418/tequilaOS/tequila_ota", f"{sha}:refs/for/main%submit")
+    else:
+        cmd = (f"ssh://{GERRIT_USERNAME}@review.tequilaos.org:29418/tequilaOS/tequila_ota", "{sha}:refs/for/main")
+
+    ota_repo.git.push(cmd)
 
 if __name__ == "__main__":
     main()
