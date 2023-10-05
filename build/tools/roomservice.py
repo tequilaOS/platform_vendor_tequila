@@ -127,7 +127,7 @@ def get_manifest_path():
         return ".repo/manifests/{}".format(m.find("include").get("name"))
 
 def get_default_revision():
-    manifest = ElementTree.parse(tequila_snippet)
+    manifest = ElementTree.parse(get_manifest_path())
     remotes = manifest.findall("remote")
     for remote in remotes:
         if remote.get("name") == default_remote:
