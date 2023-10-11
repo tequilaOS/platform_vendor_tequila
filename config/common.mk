@@ -182,7 +182,6 @@ PRODUCT_PACKAGES += \
     Updater
 endif
 
-$(call inherit-product, vendor/tequila/config/fonts.mk)
 $(call inherit-product, vendor/tequila/config/version.mk)
 $(call inherit-product, vendor/gms/products/gms.mk)
 
