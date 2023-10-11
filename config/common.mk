@@ -101,10 +101,6 @@ PRODUCT_COPY_FILES += \
 SYSTEM_OPTIMIZE_JAVA ?= true
 SYSTEMUI_OPTIMIZE_JAVA ?= true
 
-# Themes
-PRODUCT_PACKAGES += \
-    ThemePicker
-
 # Disable RescueParty due to high risk of data loss
 PRODUCT_PRODUCT_PROPERTIES += \
     persist.sys.disable_rescue=true
