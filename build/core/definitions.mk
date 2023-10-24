@@ -8,5 +8,3 @@ endef
 # Include board/platform macros
 include vendor/tequila/build/core/utils.mk
 
-# Include vendor platform definitions
-include vendor/tequila/build/core/vendor/*.mk
