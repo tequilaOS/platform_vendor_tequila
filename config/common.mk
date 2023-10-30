@@ -56,10 +56,6 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 endif
 endif
 
-# BtHelper
-PRODUCT_PACKAGES += \
-    BtHelper
-
 # tequila-specific init rc file
 PRODUCT_COPY_FILES += \
     vendor/tequila/prebuilt/common/etc/init/init.tequila-system_ext.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.tequila-system_ext.rc
@@ -118,28 +114,14 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 # Extra tools in tequila
 PRODUCT_PACKAGES += \
-    bash \
     curl \
     getcap \
-    htop \
-    nano \
     setcap \
-    vim
 
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/bin/curl \
     system/bin/getcap \
     system/bin/setcap
-
-# Openssh
-PRODUCT_PACKAGES += \
-    scp \
-    sftp \
-    ssh \
-    sshd \
-    sshd_config \
-    ssh-keygen \
-    start-ssh
 
 PRODUCT_COPY_FILES += \
     vendor/tequila/prebuilt/common/etc/init/init.openssh.rc:$(TARGET_COPY_OUT_PRODUCT)/etc/init/init.openssh.rc
