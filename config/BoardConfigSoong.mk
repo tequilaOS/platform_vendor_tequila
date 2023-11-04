@@ -46,6 +46,8 @@ SOONG_CONFIG_tequilaGlobalVars += \
 
 SOONG_CONFIG_NAMESPACES += tequilaQcomVars
 SOONG_CONFIG_tequilaQcomVars += \
+    qti_vibrator_effect_lib \
+    qti_vibrator_use_effect_stream\
     supports_extended_compress_format \
     uses_pre_uplink_features_netmgrd
 
@@ -74,6 +76,7 @@ TARGET_GRALLOC_HANDLE_HAS_CUSTOM_CONTENT_MD_RESERVED_SIZE ?= false
 TARGET_GRALLOC_HANDLE_HAS_RESERVED_SIZE ?= false
 TARGET_GRALLOC_HANDLE_HAS_UBWCP_FORMAT ?= false
 TARGET_INIT_VENDOR_LIB ?= vendor_init
+TARGET_QTI_VIBRATOR_EFFECT_LIB ?= libqtivibratoreffect
 TARGET_SURFACEFLINGER_UDFPS_LIB ?= surfaceflinger_udfps_lib
 TARGET_TRUST_USB_CONTROL_PATH ?= /proc/sys/kernel/deny_new_usb
 TARGET_TRUST_USB_CONTROL_ENABLE ?= 1
@@ -94,3 +97,4 @@ SOONG_CONFIG_tequilaQcomVars_qcom_display_headers_namespace := vendor/qcom/opens
 else
 SOONG_CONFIG_tequilaQcomVars_qcom_display_headers_namespace := $(QCOM_SOONG_NAMESPACE)/display
 endif
+SOONG_CONFIG_lineageQcomVars_qti_vibrator_effect_lib := $(TARGET_QTI_VIBRATOR_EFFECT_LIB)
