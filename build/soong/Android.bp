@@ -74,7 +74,7 @@ camera_needs_client_info_lib {
 soong_config_module_type {
     name: "aapt_version_code",
     module_type: "java_defaults",
-    config_namespace: "lineageGlobalVars",
+    config_namespace: "tequilaGlobalVars",
     value_variables: ["aapt_version_code"],
     properties: ["aaptflags"],
 }
@@ -149,7 +149,7 @@ gralloc_10_usage_bits {
 soong_config_module_type {
     name: "gralloc_handle_custom_content_md_reserved_size",
     module_type: "cc_defaults",
-    config_namespace: "lineageGlobalVars",
+    config_namespace: "tequilaGlobalVars",
     bool_variables: ["gralloc_handle_has_custom_content_md_reserved_size"],
     properties: ["export_cflags"],
 }
@@ -183,7 +183,7 @@ gralloc_handle_reserved_size {
 soong_config_module_type {
     name: "gralloc_handle_ubwcp_format",
     module_type: "cc_defaults",
-    config_namespace: "lineageGlobalVars",
+    config_namespace: "tequilaGlobalVars",
     bool_variables: ["gralloc_handle_has_ubwcp_format"],
     properties: ["export_cflags"],
 }
@@ -369,6 +369,30 @@ surfaceflinger_qcom_extensions {
         qcom_display_headers_namespace: {
             cppflags: ["-DQCOM_UM_FAMILY"],
             header_libs: ["//%s:display_intf_headers"],
+        },
+    },
+}
+
+soong_config_module_type {
+    name: "qti_vibrator_hal",
+    module_type: "cc_defaults",
+    config_namespace: "tequilaQcomVars",
+    bool_variables: ["qti_vibrator_use_effect_stream"],
+    value_variables: ["qti_vibrator_effect_lib"],
+    properties: [
+        "cppflags",
+        "shared_libs",
+    ],
+}
+
+qti_vibrator_hal {
+    name: "qti_vibrator_hal_defaults",
+    soong_config_variables: {
+        qti_vibrator_use_effect_stream: {
+            cppflags: ["-DUSE_EFFECT_STREAM"],
+        },
+        qti_vibrator_effect_lib: {
+            shared_libs: ["%s"],
         },
     },
 }
