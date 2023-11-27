@@ -1,6 +1,9 @@
 # Allow vendor/extra to override any property by setting it first
 $(call inherit-product-if-exists, vendor/extra/product.mk)
 
+# Include vendor/tequila-priv
+$(call inherit-product-if-exists, vendor/tequila-priv/config/common.mk)
+
 PRODUCT_BRAND ?= tequilaOS
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
