@@ -37,6 +37,10 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += persist.sys.usb.config=none
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += persist.sys.strictmode.disable=true
 endif
 
+# Disable lockscreen live wallpaper for media metadata on lockscreen to work
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    persist.wm.debug.lockscreen_live_wallpaper=false
+
 # Backup Tool
 PRODUCT_COPY_FILES += \
     vendor/tequila/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
