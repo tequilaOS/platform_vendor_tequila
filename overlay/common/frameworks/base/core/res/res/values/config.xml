@@ -206,7 +206,7 @@
     <string name="config_clockFontFamily" translatable="false">google-sans-clock</string>
 
     <!-- Default component for QR code scanner -->
-    <string name="config_defaultQrCodeComponent" translatable="false">org.lineageos.aperture/.QrScannerActivity</string>
+    <string name="config_defaultQrCodeComponent" translatable="false">com.google.android.gms/.mlkit.barcode.ui.PlatformBarcodeScanningActivityProxy</string>
 
     <!-- Whether safe headphone volume is enabled or not. -->
     <bool name="config_safe_media_volume_enabled">false</bool>
