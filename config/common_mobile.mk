@@ -1,9 +1,9 @@
-# Inherit common mobile Lineage stuff
-$(call inherit-product, vendor/lineage/config/common.mk)
+# Inherit common mobile tequila stuff
+$(call inherit-product, vendor/tequila/config/common.mk)
 
 # Include AOSP audio files
 $(call inherit-product-if-exists, frameworks/base/data/sounds/AudioPackage14.mk)
-include vendor/lineage/config/aosp_audio.mk
+include vendor/tequila/config/aosp_audio.mk
 
 # Apps
 PRODUCT_PACKAGES += \
@@ -26,7 +26,7 @@ endif
 
 # Customizations
 PRODUCT_PACKAGES += \
-    LineageNavigationBarNoHint \
+    tequilaNavigationBarNoHint \
     NavigationBarMode2ButtonOverlay
 
 # Media
@@ -39,6 +39,6 @@ PRODUCT_PACKAGES += \
 
 # Themes
 PRODUCT_PACKAGES += \
-    LineageBlackTheme \
+    tequilaBlackTheme \
     ThemePicker \
     ThemesStub
